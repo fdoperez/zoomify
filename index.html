@@ -1,36 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Zoomable Image</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"></script>
-  <style>
-    html, body, #viewer { margin: 0; padding: 0; width: 100%; height: 100%; }
-  </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zoomable Image</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"></script>
+    <style>
+        html, body, #viewer { margin: 0; padding: 0; width: 100%; height: 100%; }
+    </style>
 </head>
 <body>
-  <div id="viewer"></div>
-  <script>
-  console.log("Initializing OpenSeadragon...");
+    <div id="viewer"></div>
+    <script>
+        console.log("Initializing OpenSeadragon...");
 
-  var viewer = OpenSeadragon({
-    id: "viewer",
-    prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
-    tileSources: {
-      type: "zoomify",
-      url: "https://fdoperez.github.io/zoomify/",  // ← ABSOLUTE URL
-      width: 9384,   // ← REPLACE with your actual width
-      height: 6042    // ← REPLACE with your actual height
-    },
-    debugMode: true  // ← Shows helpful info in browser console
-  });
+        var viewer = OpenSeadragon({
+            id: "viewer",
+            prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
+            tileSources: [{
+                type: 'zoomify',
+                url: 'https://fdoperez.github.io/zoomify/',
+                width: 9384,
+                height: 6042
+            }],
+            showNavigationControl: true,
+            showHomeControl: true,
+            showFullPageControl: true,
+            showZoomControl: true,
+            debugMode: true
+        });
 
-  viewer.addHandler('open-failed', function(event) {
-    console.error("TileSource failed to load:", event);
-  });
-</script>
+        viewer.addHandler('open-failed', function(event) {
+            console.error("TileSource failed to load:", event);
+        });
+
+        viewer.addHandler('open', function() {
+            console.log("Viewer opened successfully!");
+        });
+    </script>
 </body>
-
 </html>
-

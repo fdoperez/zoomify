@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Zoomable Image</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/openseadragon.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/openseadragon.min.js"></script>
     <style>
         html, body, #viewer { margin: 0; padding: 0; width: 100%; height: 100%; }
     </style>
@@ -16,12 +16,12 @@
 
         var viewer = OpenSeadragon({
             id: "viewer",
-            prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/4.1.0/images/",
+            prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/",
             tileSources: {
-                type: 'zoomify',
-                url: 'https://fdoperez.github.io/zoomify/',
+                type: 'zoomifytileservice',
                 width: 9384,
-                height: 6042
+                height: 6042,
+                tilesUrl: 'https://fdoperez.github.io/zoomify/'
             },
             showNavigationControl: true,
             showHomeControl: true,
@@ -32,19 +32,10 @@
         viewer.addHandler('open-failed', function(event) {
             console.error("TileSource failed to load");
             console.error("Message:", event.message);
-            console.error("Source:", event.source);
         });
 
         viewer.addHandler('open', function() {
             console.log("Viewer opened successfully!");
-        });
-        
-        viewer.addHandler('tile-loaded', function(event) {
-            console.log("Tile loaded successfully");
-        });
-        
-        viewer.addHandler('tile-load-failed', function(event) {
-            console.error("Tile failed to load:", event.tile.url);
         });
     </script>
 </body>
